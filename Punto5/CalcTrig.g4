@@ -12,7 +12,7 @@ expr:   SIN '(' expr ')'            # SinFunction
     ;
 
 INT     : [0-9]+ ;                          // match integers
-WS      : [ \t]+ -> skip ;
-SIN     : 'sin' ;
-COS     : 'cos' ;
-TAN     : 'tan' ;
+WS      : [ \n\r\t]+ -> skip ;
+SIN     : 'sin'|'Sin' ;
+COS     : 'cos'|'Cos' ;
+TAN     : 'tan'|'Tan' ;

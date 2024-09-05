@@ -1,10 +1,15 @@
 from CalcTrigVisitor import CalcTrigVisitor
 from CalcTrigParser import CalcTrigParser
+from CalcTrigLexer import  CalcTrigLexer
 from antlr4 import *
 import math
+import sys
 
 class MyVisitor(CalcTrigVisitor):
     
+    def visitPrintExpr(self, ctx: CalcTrigParser.PrintExprContext):
+        return self.visit(ctx.expr())
+
     def visitSinFunction(self, ctx: CalcTrigParser.SinFunctionContext):
         value = self.visit(ctx.expr())
         if value is None:
@@ -26,29 +31,30 @@ class MyVisitor(CalcTrigVisitor):
     def visitInt(self, ctx: CalcTrigParser.IntContext):
         return int(ctx.getText())
 
-def main():
-    import sys
-    from antlr4 import InputStream
-    from CalcTrigLexer import CalcTrigLexer
-    from CalcTrigParser import CalcTrigParser
-
-    if len(sys.argv) != 2:
-        print("Usage: python CalcTrigVisitor.py <expression>")
-        return
-
-    expression = sys.argv[1]
-    input_stream = InputStream(expression)
+def process_line(line, visitor):
+    input_stream = InputStream(line)
     lexer = CalcTrigLexer(input_stream)
-    stream = CommonTokenStream(lexer)
-    parser = CalcTrigParser(stream)
-    tree = parser.prog()
+    token_stream = CommonTokenStream(lexer)
+    parser = CalcTrigParser(token_stream)
+    tree = parser.stat() 
+    result = visitor.visit(tree)
 
-    visitor = MyVisitor()
-    try:
-        result = visitor.visit(tree)
-        print("Result:", result)
-    except Exception as e:
-        print(f"Error: {e}")
+    if result is not None:
+        print("Result: ", result)
 
 if __name__ == '__main__':
-    main()
+    visitor = MyVisitor()
+
+    if len(sys.argv) > 1:
+        with open(sys.argv[1], 'r') as file:
+            for line in file:
+                process_line(line.strip(), visitor)
+    else:
+        while True:
+            try:
+                line = input(">> ")
+                if line.strip() == "":
+                    break
+                process_line(line, visitor)
+            except EOFError:
+                break

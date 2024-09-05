@@ -32,8 +32,7 @@ class CalcTrigParser ( Parser ):
 
     sharedContextCache = PredictionContextCache()
 
-    literalNames = [ "<INVALID>", "'('", "')'", "<INVALID>", "<INVALID>", 
-                     "'sin'", "'cos'", "'tan'" ]
+    literalNames = [ "<INVALID>", "'('", "')'" ]
 
     symbolicNames = [ "<INVALID>", "<INVALID>", "<INVALID>", "INT", "WS", 
                       "SIN", "COS", "TAN" ]
