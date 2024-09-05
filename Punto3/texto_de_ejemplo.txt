@@ -1,0 +1,4 @@
+Este es un texto de ejemplo.
+La palabra clave es ejemplo.
+Este archivo sirve para probar el código.
+Ejemplo de uso del programa.
