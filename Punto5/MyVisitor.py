@@ -1,31 +1,28 @@
 from CalcTrigVisitor import CalcTrigVisitor
 from CalcTrigParser import CalcTrigParser
 from antlr4 import *
-from antlr4.InputStream import InputStream
 import math
 
-
 class MyVisitor(CalcTrigVisitor):
-
-    def visitPrintExpr(self, ctx: CalcTrigParser.PrintExprContext):
-        value = self.visit(ctx.function())
-        print(value)
-        return value
     
     def visitSinFunction(self, ctx: CalcTrigParser.SinFunctionContext):
-        return math.sin(math.radians(self.visit(ctx.expr())))
+        value = self.visit(ctx.num())
+        return math.sin(math.radians(value))
 
     def visitCosFunction(self, ctx: CalcTrigParser.CosFunctionContext):
-        return math.cos(math.radians(self.visit(ctx.expr())))
+        value = self.visit(ctx.num())
+        return math.cos(math.radians(value))
 
     def visitTanFunction(self, ctx: CalcTrigParser.TanFunctionContext):
-        return math.tan(math.radians(self.visit(ctx.expr())))
+        value = self.visit(ctx.num())
+        return math.tan(math.radians(value))
 
+    def visitNum(self, ctx: CalcTrigParser.NumContext):
+        return int(ctx.INT().getText())
 
 def main():
     import sys
-    import antlr4
-    from antlr4.InputStream import InputStream
+    from antlr4 import InputStream
     from CalcTrigLexer import CalcTrigLexer
     from CalcTrigParser import CalcTrigParser
 

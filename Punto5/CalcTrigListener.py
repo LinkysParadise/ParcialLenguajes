@@ -53,5 +53,14 @@ class CalcTrigListener(ParseTreeListener):
         pass
 
 
+    # Enter a parse tree produced by CalcTrigParser#int.
+    def enterInt(self, ctx:CalcTrigParser.IntContext):
+        pass
+
+    # Exit a parse tree produced by CalcTrigParser#int.
+    def exitInt(self, ctx:CalcTrigParser.IntContext):
+        pass
+
+
 
 del CalcTrigParser

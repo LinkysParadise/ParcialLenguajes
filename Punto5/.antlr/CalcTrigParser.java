@@ -18,10 +18,10 @@ public class CalcTrigParser extends Parser {
 	public static final int
 		T__0=1, T__1=2, SIN=3, COS=4, TAN=5, INT=6, WS=7;
 	public static final int
-		RULE_prog = 0, RULE_stat = 1, RULE_function = 2;
+		RULE_prog = 0, RULE_stat = 1, RULE_function = 2, RULE_num = 3;
 	private static String[] makeRuleNames() {
 		return new String[] {
-			"prog", "stat", "function"
+			"prog", "stat", "function", "num"
 		};
 	}
 	public static final String[] ruleNames = makeRuleNames();
@@ -109,17 +109,17 @@ public class CalcTrigParser extends Parser {
 		try {
 			enterOuterAlt(_localctx, 1);
 			{
-			setState(7); 
+			setState(9); 
 			_errHandler.sync(this);
 			_la = _input.LA(1);
 			do {
 				{
 				{
-				setState(6);
+				setState(8);
 				stat();
 				}
 				}
-				setState(9); 
+				setState(11); 
 				_errHandler.sync(this);
 				_la = _input.LA(1);
 			} while ( (((_la) & ~0x3f) == 0 && ((1L << _la) & 56L) != 0) );
@@ -163,7 +163,7 @@ public class CalcTrigParser extends Parser {
 			_localctx = new PrintExprContext(_localctx);
 			enterOuterAlt(_localctx, 1);
 			{
-			setState(11);
+			setState(13);
 			function();
 			}
 		}
@@ -193,19 +193,25 @@ public class CalcTrigParser extends Parser {
 	@SuppressWarnings("CheckReturnValue")
 	public static class CosFunctionContext extends FunctionContext {
 		public TerminalNode COS() { return getToken(CalcTrigParser.COS, 0); }
-		public TerminalNode INT() { return getToken(CalcTrigParser.INT, 0); }
+		public NumContext num() {
+			return getRuleContext(NumContext.class,0);
+		}
 		public CosFunctionContext(FunctionContext ctx) { copyFrom(ctx); }
 	}
 	@SuppressWarnings("CheckReturnValue")
 	public static class SinFunctionContext extends FunctionContext {
 		public TerminalNode SIN() { return getToken(CalcTrigParser.SIN, 0); }
-		public TerminalNode INT() { return getToken(CalcTrigParser.INT, 0); }
+		public NumContext num() {
+			return getRuleContext(NumContext.class,0);
+		}
 		public SinFunctionContext(FunctionContext ctx) { copyFrom(ctx); }
 	}
 	@SuppressWarnings("CheckReturnValue")
 	public static class TanFunctionContext extends FunctionContext {
 		public TerminalNode TAN() { return getToken(CalcTrigParser.TAN, 0); }
-		public TerminalNode INT() { return getToken(CalcTrigParser.INT, 0); }
+		public NumContext num() {
+			return getRuleContext(NumContext.class,0);
+		}
 		public TanFunctionContext(FunctionContext ctx) { copyFrom(ctx); }
 	}
 
@@ -213,20 +219,20 @@ public class CalcTrigParser extends Parser {
 		FunctionContext _localctx = new FunctionContext(_ctx, getState());
 		enterRule(_localctx, 4, RULE_function);
 		try {
-			setState(25);
+			setState(30);
 			_errHandler.sync(this);
 			switch (_input.LA(1)) {
 			case SIN:
 				_localctx = new SinFunctionContext(_localctx);
 				enterOuterAlt(_localctx, 1);
 				{
-				setState(13);
-				match(SIN);
-				setState(14);
-				match(T__0);
 				setState(15);
-				match(INT);
+				match(SIN);
 				setState(16);
+				match(T__0);
+				setState(17);
+				num();
+				setState(18);
 				match(T__1);
 				}
 				break;
@@ -234,13 +240,13 @@ public class CalcTrigParser extends Parser {
 				_localctx = new CosFunctionContext(_localctx);
 				enterOuterAlt(_localctx, 2);
 				{
-				setState(17);
-				match(COS);
-				setState(18);
-				match(T__0);
-				setState(19);
-				match(INT);
 				setState(20);
+				match(COS);
+				setState(21);
+				match(T__0);
+				setState(22);
+				num();
+				setState(23);
 				match(T__1);
 				}
 				break;
@@ -248,13 +254,13 @@ public class CalcTrigParser extends Parser {
 				_localctx = new TanFunctionContext(_localctx);
 				enterOuterAlt(_localctx, 3);
 				{
-				setState(21);
+				setState(25);
 				match(TAN);
-				setState(22);
+				setState(26);
 				match(T__0);
-				setState(23);
-				match(INT);
-				setState(24);
+				setState(27);
+				num();
+				setState(28);
 				match(T__1);
 				}
 				break;
@@ -273,26 +279,70 @@ public class CalcTrigParser extends Parser {
 		return _localctx;
 	}
 
+	@SuppressWarnings("CheckReturnValue")
+	public static class NumContext extends ParserRuleContext {
+		public NumContext(ParserRuleContext parent, int invokingState) {
+			super(parent, invokingState);
+		}
+		@Override public int getRuleIndex() { return RULE_num; }
+	 
+		public NumContext() { }
+		public void copyFrom(NumContext ctx) {
+			super.copyFrom(ctx);
+		}
+	}
+	@SuppressWarnings("CheckReturnValue")
+	public static class IntContext extends NumContext {
+		public TerminalNode INT() { return getToken(CalcTrigParser.INT, 0); }
+		public IntContext(NumContext ctx) { copyFrom(ctx); }
+	}
+
+	public final NumContext num() throws RecognitionException {
+		NumContext _localctx = new NumContext(_ctx, getState());
+		enterRule(_localctx, 6, RULE_num);
+		try {
+			_localctx = new IntContext(_localctx);
+			enterOuterAlt(_localctx, 1);
+			{
+			setState(32);
+			match(INT);
+			}
+		}
+		catch (RecognitionException re) {
+			_localctx.exception = re;
+			_errHandler.reportError(this, re);
+			_errHandler.recover(this, re);
+		}
+		finally {
+			exitRule();
+		}
+		return _localctx;
+	}
+
 	public static final String _serializedATN =
-		"\u0004\u0001\u0007\u001c\u0002\u0000\u0007\u0000\u0002\u0001\u0007\u0001"+
-		"\u0002\u0002\u0007\u0002\u0001\u0000\u0004\u0000\b\b\u0000\u000b\u0000"+
-		"\f\u0000\t\u0001\u0001\u0001\u0001\u0001\u0002\u0001\u0002\u0001\u0002"+
-		"\u0001\u0002\u0001\u0002\u0001\u0002\u0001\u0002\u0001\u0002\u0001\u0002"+
-		"\u0001\u0002\u0001\u0002\u0001\u0002\u0003\u0002\u001a\b\u0002\u0001\u0002"+
-		"\u0000\u0000\u0003\u0000\u0002\u0004\u0000\u0000\u001b\u0000\u0007\u0001"+
-		"\u0000\u0000\u0000\u0002\u000b\u0001\u0000\u0000\u0000\u0004\u0019\u0001"+
-		"\u0000\u0000\u0000\u0006\b\u0003\u0002\u0001\u0000\u0007\u0006\u0001\u0000"+
-		"\u0000\u0000\b\t\u0001\u0000\u0000\u0000\t\u0007\u0001\u0000\u0000\u0000"+
-		"\t\n\u0001\u0000\u0000\u0000\n\u0001\u0001\u0000\u0000\u0000\u000b\f\u0003"+
-		"\u0004\u0002\u0000\f\u0003\u0001\u0000\u0000\u0000\r\u000e\u0005\u0003"+
-		"\u0000\u0000\u000e\u000f\u0005\u0001\u0000\u0000\u000f\u0010\u0005\u0006"+
-		"\u0000\u0000\u0010\u001a\u0005\u0002\u0000\u0000\u0011\u0012\u0005\u0004"+
-		"\u0000\u0000\u0012\u0013\u0005\u0001\u0000\u0000\u0013\u0014\u0005\u0006"+
-		"\u0000\u0000\u0014\u001a\u0005\u0002\u0000\u0000\u0015\u0016\u0005\u0005"+
-		"\u0000\u0000\u0016\u0017\u0005\u0001\u0000\u0000\u0017\u0018\u0005\u0006"+
-		"\u0000\u0000\u0018\u001a\u0005\u0002\u0000\u0000\u0019\r\u0001\u0000\u0000"+
-		"\u0000\u0019\u0011\u0001\u0000\u0000\u0000\u0019\u0015\u0001\u0000\u0000"+
-		"\u0000\u001a\u0005\u0001\u0000\u0000\u0000\u0002\t\u0019";
+		"\u0004\u0001\u0007#\u0002\u0000\u0007\u0000\u0002\u0001\u0007\u0001\u0002"+
+		"\u0002\u0007\u0002\u0002\u0003\u0007\u0003\u0001\u0000\u0004\u0000\n\b"+
+		"\u0000\u000b\u0000\f\u0000\u000b\u0001\u0001\u0001\u0001\u0001\u0002\u0001"+
+		"\u0002\u0001\u0002\u0001\u0002\u0001\u0002\u0001\u0002\u0001\u0002\u0001"+
+		"\u0002\u0001\u0002\u0001\u0002\u0001\u0002\u0001\u0002\u0001\u0002\u0001"+
+		"\u0002\u0001\u0002\u0003\u0002\u001f\b\u0002\u0001\u0003\u0001\u0003\u0001"+
+		"\u0003\u0000\u0000\u0004\u0000\u0002\u0004\u0006\u0000\u0000!\u0000\t"+
+		"\u0001\u0000\u0000\u0000\u0002\r\u0001\u0000\u0000\u0000\u0004\u001e\u0001"+
+		"\u0000\u0000\u0000\u0006 \u0001\u0000\u0000\u0000\b\n\u0003\u0002\u0001"+
+		"\u0000\t\b\u0001\u0000\u0000\u0000\n\u000b\u0001\u0000\u0000\u0000\u000b"+
+		"\t\u0001\u0000\u0000\u0000\u000b\f\u0001\u0000\u0000\u0000\f\u0001\u0001"+
+		"\u0000\u0000\u0000\r\u000e\u0003\u0004\u0002\u0000\u000e\u0003\u0001\u0000"+
+		"\u0000\u0000\u000f\u0010\u0005\u0003\u0000\u0000\u0010\u0011\u0005\u0001"+
+		"\u0000\u0000\u0011\u0012\u0003\u0006\u0003\u0000\u0012\u0013\u0005\u0002"+
+		"\u0000\u0000\u0013\u001f\u0001\u0000\u0000\u0000\u0014\u0015\u0005\u0004"+
+		"\u0000\u0000\u0015\u0016\u0005\u0001\u0000\u0000\u0016\u0017\u0003\u0006"+
+		"\u0003\u0000\u0017\u0018\u0005\u0002\u0000\u0000\u0018\u001f\u0001\u0000"+
+		"\u0000\u0000\u0019\u001a\u0005\u0005\u0000\u0000\u001a\u001b\u0005\u0001"+
+		"\u0000\u0000\u001b\u001c\u0003\u0006\u0003\u0000\u001c\u001d\u0005\u0002"+
+		"\u0000\u0000\u001d\u001f\u0001\u0000\u0000\u0000\u001e\u000f\u0001\u0000"+
+		"\u0000\u0000\u001e\u0014\u0001\u0000\u0000\u0000\u001e\u0019\u0001\u0000"+
+		"\u0000\u0000\u001f\u0005\u0001\u0000\u0000\u0000 !\u0005\u0006\u0000\u0000"+
+		"!\u0007\u0001\u0000\u0000\u0000\u0002\u000b\u001e";
 	public static final ATN _ATN =
 		new ATNDeserializer().deserialize(_serializedATN.toCharArray());
 	static {

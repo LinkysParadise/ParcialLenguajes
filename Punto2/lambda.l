@@ -15,7 +15,7 @@ LAMBDA "lambda"
 
 
 {ID}" "?{EQUAL_TK}" "?{LAMBDA}" "{ID}":"({NUMBER}|{ID})" "?({POW_TK}|{SUM_TK}|{SUB_TK}|{MULT_TK}|{DIV_TK})" "?({NUMBER}|{ID})    { printf("ACEPTA\n"); }
-.        { printf("NO ACEPTA\n"); }
+.+        { printf("NO ACEPTA\n"); }
 
 %%
 

@@ -34,5 +34,10 @@ class CalcTrigVisitor(ParseTreeVisitor):
         return self.visitChildren(ctx)
 
 
+    # Visit a parse tree produced by CalcTrigParser#int.
+    def visitInt(self, ctx:CalcTrigParser.IntContext):
+        return self.visitChildren(ctx)
+
+
 
 del CalcTrigParser

@@ -1,18 +1,18 @@
 grammar CalcTrig;
 
-// Define the main program
 prog:   stat+ ;
 
-// Define statements
-stat:   function                        # printExpr                  
+stat:   function                   # printExpr                  
     ;
 
 
-function: SIN '(' INT ')'          # SinFunction
-        | COS '(' INT ')'          # CosFunction
-        | TAN '(' INT ')'          # TanFunction
+function: SIN '(' num ')'          # SinFunction
+        | COS '(' num ')'          # CosFunction
+        | TAN '(' num ')'          # TanFunction
         ;
 
+num:  INT  #int
+    ;
 SIN     : 'sin' ;
 COS     : 'cos' ;
 TAN     : 'tan' ;
