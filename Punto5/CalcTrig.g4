@@ -2,19 +2,17 @@ grammar CalcTrig;
 
 prog:   stat+ ;
 
-stat:   function                   # printExpr                  
+stat:   expr                        # printExpr
     ;
 
-
-function: SIN '(' num ')'          # SinFunction
-        | COS '(' num ')'          # CosFunction
-        | TAN '(' num ')'          # TanFunction
-        ;
-
-num:  INT  #int
+expr:   SIN '(' expr ')'            # SinFunction
+    |   COS '(' expr ')'            # CosFunction
+    |   TAN '(' expr ')'            # TanFunction
+    |   INT                         # int
     ;
+
+INT     : [0-9]+ ;                          // match integers
+WS      : [ \t]+ -> skip ;
 SIN     : 'sin' ;
 COS     : 'cos' ;
 TAN     : 'tan' ;
-INT     : [0-9]+ ;                          
-WS      : [ \t\n\r]+ -> skip ;              

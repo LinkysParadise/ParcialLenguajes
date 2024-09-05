@@ -6,19 +6,25 @@ import math
 class MyVisitor(CalcTrigVisitor):
     
     def visitSinFunction(self, ctx: CalcTrigParser.SinFunctionContext):
-        value = self.visit(ctx.num())
+        value = self.visit(ctx.expr())
+        if value is None:
+            raise ValueError("Expected numeric value in SinFunction")
         return math.sin(math.radians(value))
 
     def visitCosFunction(self, ctx: CalcTrigParser.CosFunctionContext):
-        value = self.visit(ctx.num())
+        value = self.visit(ctx.expr())
+        if value is None:
+            raise ValueError("Expected numeric value in CosFunction")
         return math.cos(math.radians(value))
 
     def visitTanFunction(self, ctx: CalcTrigParser.TanFunctionContext):
-        value = self.visit(ctx.num())
+        value = self.visit(ctx.expr())
+        if value is None:
+            raise ValueError("Expected numeric value in TanFunction")
         return math.tan(math.radians(value))
 
-    def visitNum(self, ctx: CalcTrigParser.NumContext):
-        return int(ctx.INT().getText())
+    def visitInt(self, ctx: CalcTrigParser.IntContext):
+        return int(ctx.getText())
 
 def main():
     import sys
@@ -38,8 +44,11 @@ def main():
     tree = parser.prog()
 
     visitor = MyVisitor()
-    result = visitor.visit(tree)
-    print("Result:", result)
+    try:
+        result = visitor.visit(tree)
+        print("Result:", result)
+    except Exception as e:
+        print(f"Error: {e}")
 
 if __name__ == '__main__':
     main()

@@ -16,25 +16,25 @@ public class CalcTrigParser extends Parser {
 	protected static final PredictionContextCache _sharedContextCache =
 		new PredictionContextCache();
 	public static final int
-		T__0=1, T__1=2, SIN=3, COS=4, TAN=5, INT=6, WS=7;
+		T__0=1, T__1=2, INT=3, WS=4, SIN=5, COS=6, TAN=7;
 	public static final int
-		RULE_prog = 0, RULE_stat = 1, RULE_function = 2, RULE_num = 3;
+		RULE_prog = 0, RULE_stat = 1, RULE_expr = 2;
 	private static String[] makeRuleNames() {
 		return new String[] {
-			"prog", "stat", "function", "num"
+			"prog", "stat", "expr"
 		};
 	}
 	public static final String[] ruleNames = makeRuleNames();
 
 	private static String[] makeLiteralNames() {
 		return new String[] {
-			null, "'('", "')'", "'sin'", "'cos'", "'tan'"
+			null, "'('", "')'", null, null, "'sin'", "'cos'", "'tan'"
 		};
 	}
 	private static final String[] _LITERAL_NAMES = makeLiteralNames();
 	private static String[] makeSymbolicNames() {
 		return new String[] {
-			null, null, null, "SIN", "COS", "TAN", "INT", "WS"
+			null, null, null, "INT", "WS", "SIN", "COS", "TAN"
 		};
 	}
 	private static final String[] _SYMBOLIC_NAMES = makeSymbolicNames();
@@ -109,20 +109,20 @@ public class CalcTrigParser extends Parser {
 		try {
 			enterOuterAlt(_localctx, 1);
 			{
-			setState(9); 
+			setState(7); 
 			_errHandler.sync(this);
 			_la = _input.LA(1);
 			do {
 				{
 				{
-				setState(8);
+				setState(6);
 				stat();
 				}
 				}
-				setState(11); 
+				setState(9); 
 				_errHandler.sync(this);
 				_la = _input.LA(1);
-			} while ( (((_la) & ~0x3f) == 0 && ((1L << _la) & 56L) != 0) );
+			} while ( (((_la) & ~0x3f) == 0 && ((1L << _la) & 232L) != 0) );
 			}
 		}
 		catch (RecognitionException re) {
@@ -150,8 +150,8 @@ public class CalcTrigParser extends Parser {
 	}
 	@SuppressWarnings("CheckReturnValue")
 	public static class PrintExprContext extends StatContext {
-		public FunctionContext function() {
-			return getRuleContext(FunctionContext.class,0);
+		public ExprContext expr() {
+			return getRuleContext(ExprContext.class,0);
 		}
 		public PrintExprContext(StatContext ctx) { copyFrom(ctx); }
 	}
@@ -163,8 +163,8 @@ public class CalcTrigParser extends Parser {
 			_localctx = new PrintExprContext(_localctx);
 			enterOuterAlt(_localctx, 1);
 			{
-			setState(13);
-			function();
+			setState(11);
+			expr();
 			}
 		}
 		catch (RecognitionException re) {
@@ -179,60 +179,65 @@ public class CalcTrigParser extends Parser {
 	}
 
 	@SuppressWarnings("CheckReturnValue")
-	public static class FunctionContext extends ParserRuleContext {
-		public FunctionContext(ParserRuleContext parent, int invokingState) {
+	public static class ExprContext extends ParserRuleContext {
+		public ExprContext(ParserRuleContext parent, int invokingState) {
 			super(parent, invokingState);
 		}
-		@Override public int getRuleIndex() { return RULE_function; }
+		@Override public int getRuleIndex() { return RULE_expr; }
 	 
-		public FunctionContext() { }
-		public void copyFrom(FunctionContext ctx) {
+		public ExprContext() { }
+		public void copyFrom(ExprContext ctx) {
 			super.copyFrom(ctx);
 		}
 	}
 	@SuppressWarnings("CheckReturnValue")
-	public static class CosFunctionContext extends FunctionContext {
+	public static class CosFunctionContext extends ExprContext {
 		public TerminalNode COS() { return getToken(CalcTrigParser.COS, 0); }
-		public NumContext num() {
-			return getRuleContext(NumContext.class,0);
+		public ExprContext expr() {
+			return getRuleContext(ExprContext.class,0);
 		}
-		public CosFunctionContext(FunctionContext ctx) { copyFrom(ctx); }
+		public CosFunctionContext(ExprContext ctx) { copyFrom(ctx); }
 	}
 	@SuppressWarnings("CheckReturnValue")
-	public static class SinFunctionContext extends FunctionContext {
+	public static class SinFunctionContext extends ExprContext {
 		public TerminalNode SIN() { return getToken(CalcTrigParser.SIN, 0); }
-		public NumContext num() {
-			return getRuleContext(NumContext.class,0);
+		public ExprContext expr() {
+			return getRuleContext(ExprContext.class,0);
 		}
-		public SinFunctionContext(FunctionContext ctx) { copyFrom(ctx); }
+		public SinFunctionContext(ExprContext ctx) { copyFrom(ctx); }
 	}
 	@SuppressWarnings("CheckReturnValue")
-	public static class TanFunctionContext extends FunctionContext {
+	public static class TanFunctionContext extends ExprContext {
 		public TerminalNode TAN() { return getToken(CalcTrigParser.TAN, 0); }
-		public NumContext num() {
-			return getRuleContext(NumContext.class,0);
+		public ExprContext expr() {
+			return getRuleContext(ExprContext.class,0);
 		}
-		public TanFunctionContext(FunctionContext ctx) { copyFrom(ctx); }
+		public TanFunctionContext(ExprContext ctx) { copyFrom(ctx); }
+	}
+	@SuppressWarnings("CheckReturnValue")
+	public static class IntContext extends ExprContext {
+		public TerminalNode INT() { return getToken(CalcTrigParser.INT, 0); }
+		public IntContext(ExprContext ctx) { copyFrom(ctx); }
 	}
 
-	public final FunctionContext function() throws RecognitionException {
-		FunctionContext _localctx = new FunctionContext(_ctx, getState());
-		enterRule(_localctx, 4, RULE_function);
+	public final ExprContext expr() throws RecognitionException {
+		ExprContext _localctx = new ExprContext(_ctx, getState());
+		enterRule(_localctx, 4, RULE_expr);
 		try {
-			setState(30);
+			setState(29);
 			_errHandler.sync(this);
 			switch (_input.LA(1)) {
 			case SIN:
 				_localctx = new SinFunctionContext(_localctx);
 				enterOuterAlt(_localctx, 1);
 				{
-				setState(15);
+				setState(13);
 				match(SIN);
-				setState(16);
+				setState(14);
 				match(T__0);
-				setState(17);
-				num();
-				setState(18);
+				setState(15);
+				expr();
+				setState(16);
 				match(T__1);
 				}
 				break;
@@ -240,13 +245,13 @@ public class CalcTrigParser extends Parser {
 				_localctx = new CosFunctionContext(_localctx);
 				enterOuterAlt(_localctx, 2);
 				{
-				setState(20);
+				setState(18);
 				match(COS);
-				setState(21);
+				setState(19);
 				match(T__0);
-				setState(22);
-				num();
-				setState(23);
+				setState(20);
+				expr();
+				setState(21);
 				match(T__1);
 				}
 				break;
@@ -254,14 +259,22 @@ public class CalcTrigParser extends Parser {
 				_localctx = new TanFunctionContext(_localctx);
 				enterOuterAlt(_localctx, 3);
 				{
-				setState(25);
+				setState(23);
 				match(TAN);
-				setState(26);
+				setState(24);
 				match(T__0);
-				setState(27);
-				num();
-				setState(28);
+				setState(25);
+				expr();
+				setState(26);
 				match(T__1);
+				}
+				break;
+			case INT:
+				_localctx = new IntContext(_localctx);
+				enterOuterAlt(_localctx, 4);
+				{
+				setState(28);
+				match(INT);
 				}
 				break;
 			default:
@@ -279,70 +292,29 @@ public class CalcTrigParser extends Parser {
 		return _localctx;
 	}
 
-	@SuppressWarnings("CheckReturnValue")
-	public static class NumContext extends ParserRuleContext {
-		public NumContext(ParserRuleContext parent, int invokingState) {
-			super(parent, invokingState);
-		}
-		@Override public int getRuleIndex() { return RULE_num; }
-	 
-		public NumContext() { }
-		public void copyFrom(NumContext ctx) {
-			super.copyFrom(ctx);
-		}
-	}
-	@SuppressWarnings("CheckReturnValue")
-	public static class IntContext extends NumContext {
-		public TerminalNode INT() { return getToken(CalcTrigParser.INT, 0); }
-		public IntContext(NumContext ctx) { copyFrom(ctx); }
-	}
-
-	public final NumContext num() throws RecognitionException {
-		NumContext _localctx = new NumContext(_ctx, getState());
-		enterRule(_localctx, 6, RULE_num);
-		try {
-			_localctx = new IntContext(_localctx);
-			enterOuterAlt(_localctx, 1);
-			{
-			setState(32);
-			match(INT);
-			}
-		}
-		catch (RecognitionException re) {
-			_localctx.exception = re;
-			_errHandler.reportError(this, re);
-			_errHandler.recover(this, re);
-		}
-		finally {
-			exitRule();
-		}
-		return _localctx;
-	}
-
 	public static final String _serializedATN =
-		"\u0004\u0001\u0007#\u0002\u0000\u0007\u0000\u0002\u0001\u0007\u0001\u0002"+
-		"\u0002\u0007\u0002\u0002\u0003\u0007\u0003\u0001\u0000\u0004\u0000\n\b"+
-		"\u0000\u000b\u0000\f\u0000\u000b\u0001\u0001\u0001\u0001\u0001\u0002\u0001"+
-		"\u0002\u0001\u0002\u0001\u0002\u0001\u0002\u0001\u0002\u0001\u0002\u0001"+
-		"\u0002\u0001\u0002\u0001\u0002\u0001\u0002\u0001\u0002\u0001\u0002\u0001"+
-		"\u0002\u0001\u0002\u0003\u0002\u001f\b\u0002\u0001\u0003\u0001\u0003\u0001"+
-		"\u0003\u0000\u0000\u0004\u0000\u0002\u0004\u0006\u0000\u0000!\u0000\t"+
-		"\u0001\u0000\u0000\u0000\u0002\r\u0001\u0000\u0000\u0000\u0004\u001e\u0001"+
-		"\u0000\u0000\u0000\u0006 \u0001\u0000\u0000\u0000\b\n\u0003\u0002\u0001"+
-		"\u0000\t\b\u0001\u0000\u0000\u0000\n\u000b\u0001\u0000\u0000\u0000\u000b"+
-		"\t\u0001\u0000\u0000\u0000\u000b\f\u0001\u0000\u0000\u0000\f\u0001\u0001"+
-		"\u0000\u0000\u0000\r\u000e\u0003\u0004\u0002\u0000\u000e\u0003\u0001\u0000"+
-		"\u0000\u0000\u000f\u0010\u0005\u0003\u0000\u0000\u0010\u0011\u0005\u0001"+
-		"\u0000\u0000\u0011\u0012\u0003\u0006\u0003\u0000\u0012\u0013\u0005\u0002"+
-		"\u0000\u0000\u0013\u001f\u0001\u0000\u0000\u0000\u0014\u0015\u0005\u0004"+
-		"\u0000\u0000\u0015\u0016\u0005\u0001\u0000\u0000\u0016\u0017\u0003\u0006"+
-		"\u0003\u0000\u0017\u0018\u0005\u0002\u0000\u0000\u0018\u001f\u0001\u0000"+
-		"\u0000\u0000\u0019\u001a\u0005\u0005\u0000\u0000\u001a\u001b\u0005\u0001"+
-		"\u0000\u0000\u001b\u001c\u0003\u0006\u0003\u0000\u001c\u001d\u0005\u0002"+
-		"\u0000\u0000\u001d\u001f\u0001\u0000\u0000\u0000\u001e\u000f\u0001\u0000"+
-		"\u0000\u0000\u001e\u0014\u0001\u0000\u0000\u0000\u001e\u0019\u0001\u0000"+
-		"\u0000\u0000\u001f\u0005\u0001\u0000\u0000\u0000 !\u0005\u0006\u0000\u0000"+
-		"!\u0007\u0001\u0000\u0000\u0000\u0002\u000b\u001e";
+		"\u0004\u0001\u0007 \u0002\u0000\u0007\u0000\u0002\u0001\u0007\u0001\u0002"+
+		"\u0002\u0007\u0002\u0001\u0000\u0004\u0000\b\b\u0000\u000b\u0000\f\u0000"+
+		"\t\u0001\u0001\u0001\u0001\u0001\u0002\u0001\u0002\u0001\u0002\u0001\u0002"+
+		"\u0001\u0002\u0001\u0002\u0001\u0002\u0001\u0002\u0001\u0002\u0001\u0002"+
+		"\u0001\u0002\u0001\u0002\u0001\u0002\u0001\u0002\u0001\u0002\u0001\u0002"+
+		"\u0003\u0002\u001e\b\u0002\u0001\u0002\u0000\u0000\u0003\u0000\u0002\u0004"+
+		"\u0000\u0000 \u0000\u0007\u0001\u0000\u0000\u0000\u0002\u000b\u0001\u0000"+
+		"\u0000\u0000\u0004\u001d\u0001\u0000\u0000\u0000\u0006\b\u0003\u0002\u0001"+
+		"\u0000\u0007\u0006\u0001\u0000\u0000\u0000\b\t\u0001\u0000\u0000\u0000"+
+		"\t\u0007\u0001\u0000\u0000\u0000\t\n\u0001\u0000\u0000\u0000\n\u0001\u0001"+
+		"\u0000\u0000\u0000\u000b\f\u0003\u0004\u0002\u0000\f\u0003\u0001\u0000"+
+		"\u0000\u0000\r\u000e\u0005\u0005\u0000\u0000\u000e\u000f\u0005\u0001\u0000"+
+		"\u0000\u000f\u0010\u0003\u0004\u0002\u0000\u0010\u0011\u0005\u0002\u0000"+
+		"\u0000\u0011\u001e\u0001\u0000\u0000\u0000\u0012\u0013\u0005\u0006\u0000"+
+		"\u0000\u0013\u0014\u0005\u0001\u0000\u0000\u0014\u0015\u0003\u0004\u0002"+
+		"\u0000\u0015\u0016\u0005\u0002\u0000\u0000\u0016\u001e\u0001\u0000\u0000"+
+		"\u0000\u0017\u0018\u0005\u0007\u0000\u0000\u0018\u0019\u0005\u0001\u0000"+
+		"\u0000\u0019\u001a\u0003\u0004\u0002\u0000\u001a\u001b\u0005\u0002\u0000"+
+		"\u0000\u001b\u001e\u0001\u0000\u0000\u0000\u001c\u001e\u0005\u0003\u0000"+
+		"\u0000\u001d\r\u0001\u0000\u0000\u0000\u001d\u0012\u0001\u0000\u0000\u0000"+
+		"\u001d\u0017\u0001\u0000\u0000\u0000\u001d\u001c\u0001\u0000\u0000\u0000"+
+		"\u001e\u0005\u0001\u0000\u0000\u0000\u0002\t\u001d";
 	public static final ATN _ATN =
 		new ATNDeserializer().deserialize(_serializedATN.toCharArray());
 	static {
